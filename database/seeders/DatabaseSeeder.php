@@ -5,7 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Status;
 use App\Models\User;
+use App\Models\Venue;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,12 +23,24 @@ class DatabaseSeeder extends Seeder
             'is_admin' =>1,
             'password'=> bcrypt('password')
         ]);
+
         Category::factory(10)->create();
+
         User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Status::factory(3)->create();
+        Status::factory()->create([
+            'name'=> 'Up coming',
+            'description' => 'about to happen'
+        ]);
+        Status::factory()->create([
+            'name'=> 'On going',
+            'description' => 'happening'
+        ]);
+        Status::factory()->create([
+            'name'=> 'Ended',
+            'description' => 'already happened'
+        ]);
+
     }
 }

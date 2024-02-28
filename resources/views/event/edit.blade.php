@@ -12,7 +12,7 @@
             <div class="showEvent shadow bg-body-tertiary mt-5 p-5 rounded">
                 <a href="{{ url()->previous() }}" class="btn">
                     < Go back</a>
-                        <form method="post" action="">
+                        <form method="post" action="{{ route('event.update',$event->slug) }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4">
@@ -54,30 +54,26 @@
                                             <th>Category</th>
                                             <td class="orgVal">{{ $event->category->title }}</td>
                                             <td class="newVal">
-                                                <select class="form-select form-select-sm" name="category"
-                                                    id="category">
-                                                    <option selected>{{ $event->category->title }}</option>
+                                                <select class="form-select form-select-sm" name="category" id="category">
                                                     @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">{{ $category->title }}
+                                                        <option value="{{ $category->id }}" {{ $category->id == $event->category_id ? 'selected' : '' }}>
+                                                            {{ $category->title }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Host</th>
                                             <td class="orgVal">{{ $event->host->name }}</td>
                                             <td class="newVal">
-                                                <select class="form-select form-select-sm" name="host"
-                                                    id="host">
-                                                    <option selected>{{ $event->host->name }}</option>
+                                                <select class="form-select form-select-sm" name="host" id="host">
                                                     @foreach ($hosts as $host)
-                                                        <option value="{{ $host->id }}">{{ $host->name }}
+                                                        <option value="{{ $host->id }}" {{ $host->id == $event->host_id ? 'selected' : '' }}>
+                                                            {{ $host->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-
                                             </td>
                                         </tr>
                                         <tr>
@@ -86,8 +82,7 @@
                                                 {{ date_format(date_create($event->start_date), 'F d, Y') }}
                                             </td>
                                             <td class="newVal">
-                                                <input type="date" class="form-control form-control-sm"
-                                                    name="start" />
+                                                <input type="date" class="form-control form-control-sm" name="start" value="{{ date('Y-m-d', strtotime($event->start_date)) }}" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -96,13 +91,13 @@
                                                 {{ date_format(date_create($event->end_date), 'F d, Y') }}
                                             </td>
                                             <td class="newVal">
-                                                <input type="date" class="form-control form-control-sm"
-                                                    name="end" />
+                                                <input type="date" class="form-control form-control-sm" name="end" value="{{ date('Y-m-d', strtotime($event->end_date)) }}" />
                                             </td>
                                         </tr>
+
                                         <tr>
                                             <th>Venue</th>
-                                            <td class="orgVal">
+                                            <td>
                                                 <a href="{{ route('mapview', $event->venue->id) }}" class="text-dark"
                                                     style="text-decoration: none;">{{ $event->venue->name }}</a>
                                             </td>
@@ -111,15 +106,13 @@
                                             <th>Status</th>
                                             <td class="orgVal">{{ $event->status->name }}</td>
                                             <td class="newVal">
-                                                <select class="form-select form-select-sm" name="status"
-                                                    id="status">
-                                                    <option selected>{{ $event->status->name }}</option>
+                                                <select class="form-select form-select-sm" name="status" id="status">
                                                     @foreach ($statuses as $status)
-                                                        <option value="{{ $status->id }}">{{ $status->name }}
+                                                        <option value="{{ $status->id }}" {{ $status->id == $event->status_id ? 'selected' : '' }}>
+                                                            {{ $status->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-
                                             </td>
                                         </tr>
                                         <tr class="submitBtn">
@@ -127,7 +120,6 @@
                                                 <button type="submit" class="btn btn-danger btn-sm">
                                                     Edit Details
                                                 </button>
-
                                             </td>
                                         </tr>
                                     </table>
@@ -153,10 +145,9 @@
                 newVal.show(); // Show newVal
                 $(".submitBtn").show();
             });
-            $(".eventThumbnail").click() {
-                $(".newImg").show();
-            }
+            $(".eventThumbnail").click(function() {
+                $("newImg").show();
+            });
         });
     </script>
-
 </x-home.layout>

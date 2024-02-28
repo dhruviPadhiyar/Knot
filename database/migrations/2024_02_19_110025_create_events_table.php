@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('venue_id')->default(1);
             $table->foreignId('status_id');
             $table->string('thumbnail');
+            $table->string('price');
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@ class HomeController extends Controller
             return view('admin.dashboard',compact('events','onGoing','upComing','users','hosts'));
         }
         else{
-            $events = Event::all();
+            $events = Event::with('price')->orderBy('start_Date','asc')->get();
             return view('user.home',compact('events'));
         }
 

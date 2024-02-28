@@ -21,6 +21,7 @@
                             <th>Status</th>
                             <th>Host</th>
                             <th>Venue</th>
+                            <th>Price</th>
                             <th>Image</th>
                             <th>Action</th>
                         </tr>
@@ -31,7 +32,7 @@
                                 <td>{{ $loop->iteration }} </td>
                                 <td> <a href="{{ route('event.show',$event->slug) }}" style="text-decoration: none;" class="text-dark">{{ $event->name }}</a>
                                 </td>
-                                <td>{{ $event->description }}</td>
+                                <td class="w-50">{{ $event->description }}</td>
                                 <td>{{ $event->category->title }}</td>
                                 <td>{{ $event->start_Date }}</td>
                                 <td>{{ $event->end_date }}</td>
@@ -39,6 +40,8 @@
                                 <td>{{ $event->host->name }}</td>
                                 <td> <a href="{{ route('mapview',$event->venue->id) }}" style="text-decoration: none;" class="text-dark">{{ $event->venue->name }}</a>
                                 </td>
+                                <td>{{ $event->price }}</td>
+
                                 <td>
                                     <img
                                         src="{{  url('Events/'.$event->thumbnail) }}"
@@ -50,7 +53,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('event.edit',$event->slug) }}" class="btn btn-sm text-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="" class="btn btn-sm text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="{{ route('event.delete',$event->slug) }}" class="btn btn-sm text-danger"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                         @endforeach

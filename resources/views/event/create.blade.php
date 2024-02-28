@@ -1,6 +1,14 @@
 <x-home.layout>
     <x-admin.navbar />
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="container-fluid ">
         <div class="main p-4 m-2">
             <div class="row">
@@ -84,56 +92,32 @@
                                             @endforeach
                                         </select>
                                     </x-form.field>
-
                                 </div>
                             </div>
 
-                            <div class="mt-3 row">
-                                <div class="col-sm-6">
-                                    <button type="button" id="przBtn" class="btn btn-danger bg-gradient btn-sm">
-                                        Create Event & Add Prizing
-                                    </button>
+                            <!-- pricing section -->
+                            <label for="pricing" class="ms-2 form-label ms-1">Add Pricing (optional)</label>
+                            <section class="secPrc p-2 shadow rounded m-2 mb-3 border bg-body-tertiary">
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input type="number" class="form-control" name="price" id="price"
+                                        placeholder="Enter price" />
                                 </div>
-                                <div class="col-sm-6 text-end">
-                                    <button type="submit" class="btn btn-danger bg-gradient btn-sm">
-                                        Create Event
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+
                     </div>
+                    </section>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-danger bg-gradient btn-sm">
+                            Create Event
+                        </button>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $("#przBtn").click(function(){
-            window.location.href = "{{ route('event.prizing.add') }}";
-        });
-        });
-        // $(document).ready(function() {
-        //     $("#eventForm").submit(function(e) {
-        //         // e.preventDefault(); // Prevent the default form submission
+    </div>
 
-        //         let form = $(this)[0]; // Get the form element
-
-        //         let data = new FormData(form); // Serialize form data
-
-        //         $.ajax({
-        //             type: "post",
-        //             url: "{{ route('event.prizing.add') }}",
-        //             data: data,
-        //             processData: false,
-        //             contentType: false,
-        //             success: function(response) {
-        //                 console.log(response); // Log the response
-        //             },
-        //             error: function(xhr, status, error) {
-        //                 console.error(error); // Log any errors
-        //             }
-        //         });
-        //     });
-        // });
     </script>
 </x-home.layout>
