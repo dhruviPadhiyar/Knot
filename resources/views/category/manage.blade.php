@@ -1,5 +1,5 @@
 <x-home.layout>
-    <x-admin.navbar />
+    <x-admin.navbar :notifications="$notifications"  />
 
     <div class="container">
         @if ($categories->count())
@@ -18,7 +18,7 @@
                                 Action
                             </th>
                         </tr>
-                    </thead>    
+                    </thead>
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>

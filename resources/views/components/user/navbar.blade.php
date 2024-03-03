@@ -23,21 +23,72 @@
             </div>
         </div>
         {{-- div-3  --}}
-        <div class="col-3 text-end">
-            <p class="me-5">
-                {{-- profile-section --}}
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+        <div class="col-3">
+            <div class="row">
+                <div class="col-7 text-end">
+                    <button type="button" id="bell" class="btn btn-lg text-danger">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="badge badge-light text-danger">{{ $notifications->count() }}</span>
+                        <span class="sr-only">unread messages</span>
+                    </button>
+                </div>
+                <div class="col-5 mt-2">
+                    <div class="dropdown open">
+                        <button class="btn btn-danger dropdown-toggle" type="button" id="triggerId"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="triggerId">
+                            <a class="dropdown-item" href="{{ route('user.booking') }}">
+                                Bookings
+                            </a>
+                            <a href="{{ route('request.create') }}" class="dropdown-item">Make Request</a>
+                            {{-- <a class="dropdown-item" href="{{ route('user.requests') }}">
+                                Requests
+                            </a> --}}
+                            <button class="dropdown-item ">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
 
-                <a href="route('logout')"
-                    onclick="event.preventDefault();
-                                        this.closest('form').submit();"
-                    class="btn btn-sm btn-outline-danger me-5 ">
+                                    <a href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                        this.closest('form').submit();"
+                                        class="btn btn-sm btn-outline-danger me-5 ">
+                                        Logout
+                                    </a>
+                                </form>
+                            </button>
+                        </div>
+                    </div>
 
-                    Logout
-                </a>
-            </form>
-            </p>
+                </div>
+            </div>
         </div>
     </nav>
 </div>
+@if ($notifications->count())
+    <div class="notify d-flex flex-row-reverse">
+        <div class="notifications border bg-body-tertiary" style="width:500px;">
+            @foreach ($notifications as $notification)
+                <div class="notification{{ $notification->id }} m-2 p-2 border">
+                    <strong class="mb-1">{{ $notification->subject }}</strong>
+                    <p>
+                        {{ $notification->body }}
+                        {{-- <a href="{{ route('requests.manage') }}" class="btn btn-sm btn-outline-danger ms-3">Check the
+                            request</a> --}}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+<script>
+    $(document).ready(function() {
+        $(".notifications").hide();
+        $("#bell").click(function() {
+            $(".notifications").toggle();
+            console.log("notification");
+        });
+    });
+</script>

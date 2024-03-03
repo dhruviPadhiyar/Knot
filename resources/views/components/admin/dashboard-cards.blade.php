@@ -151,8 +151,8 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">Total Requests</h5>
-                                    <p class="card-text">
-                                        Event count
+                                    <p class="card-text fw-bold">
+                                        {{ $requests->count() }}
                                     </p>
                                 </div>
                             </div>
@@ -171,8 +171,8 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">Pending</h5>
-                                    <p class="card-text">
-                                        Pending Requests
+                                    <p class="card-text fw-bold">
+                                            {{ $pending->count()  }}
                                     </p>
                                 </div>
                             </div>
@@ -191,8 +191,8 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">Completed</h5>
-                                    <p class="card-text">
-                                        Completed Requests
+                                    <p class="card-text fw-bold">
+                                        {{ $apr->count() }}
                                     </p>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 <x-home.layout>
     {{-- edit category --}}
-    <x-admin.navbar />
+    <x-admin.navbar :notifications="$notifications"  />
     <div class="container">
         <div class="alert alert-danger m-2">
             <h5>Click on the field you want to edit

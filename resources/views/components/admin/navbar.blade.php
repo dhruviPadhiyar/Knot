@@ -32,8 +32,8 @@
                             </a>
                         </div>
                     </li>
-                      <!-- category -->
-                      <li class="nav-item dropdown p-2">
+                    <!-- category -->
+                    <li class="nav-item dropdown p-2">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Category</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -48,8 +48,8 @@
                     </li>
 
 
-                     <!-- venue -->
-                     <li class="nav-item dropdown p-2">
+                    <!-- venue -->
+                    <li class="nav-item dropdown p-2">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Venue</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -64,8 +64,8 @@
                     </li>
 
 
-                     <!-- status -->
-                     <li class="nav-item dropdown p-2">
+                    <!-- status -->
+                    <li class="nav-item dropdown p-2">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Status</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -80,25 +80,76 @@
                     </li>
 
 
+                    <!-- requests -->
+                    <li class="nav-item dropdown p-2">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Requests</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item text-danger" href="{{ route('requests.manage') }}">
+                                Manage
+                                <i class="fa-solid fa-bars-progress m-2"></i>
+                            </a>
+
+                        </div>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
         {{-- div-3  --}}
-        <div class="col-3 text-end">
-            <p class="me-5">
-                {{-- profile-section --}}
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+        <div class="col-3">
 
-                <a href="route('logout')"
-                    onclick="event.preventDefault();
-                                        this.closest('form').submit();"
-                    class="btn btn-sm btn-outline-danger me-5 ">
 
-                    Logout
-                </a>
-            </form>
-            </p>
+            {{-- profile-section --}}
+            <div class="row">
+                <div class="col-9 text-end">
+                    <button type="button" id="bell" class="btn btn-lg text-danger">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="badge badge-light text-danger">{{ $notifications->count() }}</span>
+                        <span class="sr-only">unread messages</span>
+                    </button>
+                </div>
+
+                <div class="col-3">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <a href="route('logout')"
+                            onclick="event.preventDefault();
+                                                this.closest('form').submit();"
+                            class="btn btn-sm btn-outline-danger mt-2 ">
+
+                            Logout
+                        </a>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </nav>
 </div>
+<div class="notify d-flex flex-row-reverse">
+    <div class="notifications border bg-body-tertiary" style="width:500px;">
+        @foreach ($notifications as $notification)
+            <div class="notification{{ $notification->id }} m-2 p-2 border">
+                <strong class="mb-1">{{ $notification->subject }}</strong>
+                <p>
+                    <strong>{{ ucwords($notification->sender->name) }}</strong> has requested for Event.
+                    <a href="{{ route('requests.manage') }}" class="btn btn-sm btn-outline-danger ms-3">Check the
+                        request</a>
+                </p>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(".notifications").hide();
+        $("#bell").click(function() {
+            $(".notifications").toggle();
+            console.log("notification");
+        });
+    });
+</script>

@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
     public function index(){
         $categories = Category::all();
-        return view('category.manage',compact('categories'));
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view('category.manage',compact('categories','notifications'));
     }
 
     public function create()
     {
-        return view("category.create");
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view("category.create",compact('notifications'));
     }
     public function store(Request $request)
     {
@@ -33,13 +37,15 @@ class CategoryController extends Controller
         toastr()->success('Category created successfullt!');
 
         // redirect
-        return view('admin.dashboard');
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view('admin.dashboard',compact("notifications"));
     }
 
     public function edit($id){
         // returning view for the edit category form
         $category = Category::find($id);
-        return view('category.edit',compact('category'));
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view('category.edit',compact('category','notifications'));
     }
 
     public function update($id){

@@ -1,5 +1,5 @@
 <x-home.layout>
-    <x-admin.navbar />
+    <x-admin.navbar :notifications="$notifications"  />
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

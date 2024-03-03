@@ -1,5 +1,5 @@
 <x-home.layout>
-    <x-admin.navbar />
+    <x-admin.navbar :notifications="$notifications"  />
 
     <div class="container" style="margin-bottom: 120px;">
         <div class="createCategory m-5 p-5 shadow">
@@ -11,7 +11,7 @@
                         class="img-fluid rounded-top"
                         alt="create-category"
                     />
-                    
+
                 </div>
                 <div class="col-7">
                     <div class="heading text-center">
@@ -34,12 +34,12 @@
                                     required
                                 />
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description </label>
                                 <textarea class="form-control" name="description" id="description" placeholder="Category Description" ></textarea>
                             </div>
-                            
+
                             <div class="submitBtn text-end m-2">
                                 <button
                                     type="submit"

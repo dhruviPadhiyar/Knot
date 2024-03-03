@@ -1,4 +1,4 @@
-<div class="showcase m-4 p-4">
+<div class="showcase m-4 p-4 mb-5">
 
     <div class="heading text-center">
         <h1 class="display-5 fw-bold text-danger">
@@ -20,7 +20,7 @@
                         <h4 class="card-text text-uppercase"><i class="fa-solid fa-trophy text-danger m-1 p-1"></i>BEST EVENT MANAGEMENT COMPANY</h4>
                     </div>
                 </div>
-            </div> 
+            </div>
             {{-- column-2   --}}
             <div class="col-4">
                 <div class="card">

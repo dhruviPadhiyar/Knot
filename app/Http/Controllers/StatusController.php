@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
 {
     public function create(){
-        return view("status.create");
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view("status.create",compact("notifications"));
     }
     public function store(Request $request){
         $status = new Status();
@@ -22,7 +25,8 @@ class StatusController extends Controller
 
     public function manage(){
         $statuses = Status::all();
-        return view("status.manage",compact("statuses"));
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view("status.manage",compact("statuses","notifications"));
     }
 
 }

@@ -32,6 +32,16 @@
             font-style: normal;
         }
 
+        .notify {
+            position: fixed;
+            /* top: 0; */
+            right: 0;
+            z-index: 1000;
+            /* Ensure it appears above other content */
+        }
+
+
+
         .footer {
             position: fixed;
             height: 80px;
@@ -43,8 +53,6 @@
         #page-content {
             flex: 1 0 auto;
         }
-
-
     </style>
     {{-- <x-home.google-fonts /> --}}
     {{-- mapbox --}}

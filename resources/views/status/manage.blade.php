@@ -1,5 +1,5 @@
 <x-home.layout>
-    <x-admin.navbar />
+    <x-admin.navbar :notifications="$notifications"  />
 
     <div class="container">
         <div class="heading m-2 text-center">

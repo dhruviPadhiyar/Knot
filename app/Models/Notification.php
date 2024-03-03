@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model
+class Notification extends Model
 {
     use HasFactory;
-
-    public function event(){
-        return $this->belongsTo(Event::class);
+    public function sender(){
+        return $this->belongsTo(User::class,"senderId");
     }
 }

@@ -1,5 +1,5 @@
 <x-home.layout>
-    <x-admin.navbar />
+    <x-admin.navbar :notifications="$notifications"  />
     <div class="container">
         <div class="main mt-5">
             <div class="row m-5 p-4 shadow rounded bg-body">

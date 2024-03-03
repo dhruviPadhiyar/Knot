@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVenueRequest;
+use App\Models\Notification;
 use App\Models\Venue;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class VenueController extends Controller
 {
     public function create()
     {
-        return view("venue.create");
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view("venue.create",compact("notifications"));
     }
 
     public function store(Request $request)
@@ -59,7 +62,8 @@ class VenueController extends Controller
     public function edit($id)
     {
         $venue = Venue::find($id)->first();
-        return view('venue.edit', compact('venue'));
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view('venue.edit', compact('venue','notifications'));
     }
     public function update(Request $request, $id)
     {
@@ -121,11 +125,13 @@ class VenueController extends Controller
     public function manage()
     {
         $venues = Venue::all();
-        return view('venue.manage', compact('venues'));
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view('venue.manage', compact('venues','notifications'));
     }
     public function mapview($id)
     {
         $venue = Venue::find($id)->first();
-        return view("venue.mapview", compact("venue"));
+        $notifications = Notification::where("receiverId",Auth::user()->id)->get();
+        return view("venue.mapview", compact("venue","notifications"));
     }
 }

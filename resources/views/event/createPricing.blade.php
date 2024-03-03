@@ -1,4 +1,4 @@
 <x-home.layout>
 
-     <x-admin.navbar />
+     <x-admin.navbar :notifications="$notifications"  />
 </x-home.layout>

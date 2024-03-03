@@ -1,5 +1,5 @@
 <x-home.layout>
-    <x-admin.navbar />
+    <x-admin.navbar :notifications="$notifications"  />
     <div class="container">
         {{-- edit venue page --}}
         <div class="main" style="margin-top: 50px;">
