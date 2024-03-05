@@ -28,16 +28,21 @@ use App\Models\User;
 
 Route::prefix('v1')->group(function () {
     //  routes
-    Route::resource('/categories', CategoryApiController::class);
-    Route::resource('/events', EventApiController::class);
-    Route::resource('/users', UsersApiController::class);
-    Route::resource('/venues', VenueApiController::class);
+    // using rate limiting
+    Route::middleware(['throttle:custom'])->group(function () {
+        Route::post('/register', [AuthUserApiController::class, 'register']);
+        Route::post('/login', [AuthUserApiController::class, 'login']);
 
-    Route::post('/register', [AuthUserApiController::class, 'register']);
-    Route::post('/login', [AuthUserApiController::class, 'login']);
-    Route::post('/logout', [AuthUserApiController::class, 'logout'])->middleware('auth:sanctum');
+        Route::middleware(['auth:sanctum'])->group(function () {
+            Route::post('/logout', [AuthUserApiController::class, 'logout'])->middleware('auth:sanctum');
+            Route::resource('/categories', CategoryApiController::class);
+            Route::resource('/events', EventApiController::class);
+            Route::resource('/users', UsersApiController::class);
+            Route::resource('/venues', VenueApiController::class);
+        });
+    });
 });
-
+// swagger
 Route::post('/register', [SwaggerApiController::class, 'register']);
 Route::post('/login', [SwaggerLoginApiController::class, 'login']);
 Route::get('/user', [SwaggerApiController::class, 'getUserDetails'])->middleware('auth:sanctum');
