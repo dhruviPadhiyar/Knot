@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email'=> 'admin@test.com',
             'is_admin' =>1,
-            'password'=> bcrypt('password')
+            'password'=> bcrypt('admin123')
         ]);
 
         Category::factory(10)->create();
