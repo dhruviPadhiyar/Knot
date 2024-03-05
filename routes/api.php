@@ -26,23 +26,37 @@ use App\Models\User;
 */
 
 
+// Public routes with rate limiting
 Route::prefix('v1')->group(function () {
-    //  routes
-    // using rate limiting
     Route::middleware(['throttle:custom'])->group(function () {
+        // Authentication routes
         Route::post('/register', [AuthUserApiController::class, 'register']);
         Route::post('/login', [AuthUserApiController::class, 'login']);
+    });
 
-        Route::middleware(['auth:sanctum'])->group(function () {
-            Route::post('/logout', [AuthUserApiController::class, 'logout'])->middleware('auth:sanctum');
-            Route::resource('/categories', CategoryApiController::class);
+    // Authenticated routes
+    Route::middleware(['auth:sanctum'])->group(function () {
+        // User routes
+        Route::post('/logout', [AuthUserApiController::class, 'logout']);
+        Route::get('/user', [AuthUserApiController::class, 'getUserDetails']);
+
+        // Admin routes (requires admin role)
+        Route::middleware(['admin'])->group(function () {
+            // Event routes
             Route::resource('/events', EventApiController::class);
-            Route::resource('/users', UsersApiController::class);
+            // Category routes
+            Route::resource('/categories', CategoryApiController::class);
+            // Venue routes
             Route::resource('/venues', VenueApiController::class);
         });
+
+        // General user routes
+        Route::resource('/users', UsersApiController::class)->except(['create', 'edit']);
     });
 });
-// swagger
-Route::post('/register', [SwaggerApiController::class, 'register']);
-Route::post('/login', [SwaggerLoginApiController::class, 'login']);
-Route::get('/user', [SwaggerApiController::class, 'getUserDetails'])->middleware('auth:sanctum');
+
+// Swagger/OpenAPI routes
+Route::prefix('swagger')->group(function () {
+    Route::post('/register', [SwaggerApiController::class, 'register']);
+    Route::post('/login', [SwaggerLoginApiController::class, 'login']);
+});
