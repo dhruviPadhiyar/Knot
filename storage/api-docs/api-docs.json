@@ -1,0 +1,111 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API testing using Swagger",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "summary": "Register a new user",
+                "operationId": "faa7c24fa1b53524bec7550112cda5c9",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "User's name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User's email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "summary": "Get logged-in user details",
+                "operationId": "9beadec365d0bcf03f705e72e37b2b4c",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "572e6a064e0c18f47561b49c7c6e1520",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User's email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

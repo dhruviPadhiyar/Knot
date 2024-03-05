@@ -1,38 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategoryApiController extends Controller
+class EventRequestApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Category::all();
-        // return CategoryResource::collection();
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-        $category = new Category;
-        $category->title = $request->title;
-        $category->description = $request->description;
-        $category->save();
-
-        return response()->json(["success" => "Category created successfully."]);
-
-        // return new CategoryResource($category);
-
-
-
+        //
     }
 
     /**

@@ -41,13 +41,17 @@ class HomeController extends Controller
     public function booking(){
         $user = Auth::user();
         $booking = Ticket::where('user_id',$user->id)->get();
-        return view('user.bookings', compact('user','booking'));
+        $notifications = Notification::where('receiverId', Auth::user()->id)->get();
+
+        return view('user.bookings', compact('user','booking','notifications'));
     }
 
     public function requests(){
         $user=Auth::user();
         $hostedEvents = Event::where('host_id',$user->id)->get();
-        return view('user.requests',compact('user','hostedEvents'));
+        $notifications = Notification::where('receiverId', Auth::user()->id)->get();
+
+        return view('user.requests',compact('user','hostedEvents','notifications'));
     }
 
 }

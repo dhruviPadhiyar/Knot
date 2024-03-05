@@ -1,6 +1,13 @@
 <?php
 
-use App\Http\Controllers\CategoryApiController;
+use App\Http\Controllers\Api\v1\AuthUserApiController;
+use App\Http\Controllers\Api\v1\CategoryApiController;
+use App\Http\Controllers\Api\v1\EventApiController;
+use App\Http\Controllers\Api\v1\EventRequestApiController;
+use App\Http\Controllers\Api\v1\SwaggerApiController;
+use App\Http\Controllers\Api\v1\SwaggerLoginApiController;
+use App\Http\Controllers\Api\v1\UsersApiController;
+use App\Http\Controllers\Api\v1\VenueApiController;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -19,15 +26,18 @@ use App\Models\User;
 */
 
 
-Route::get('/users',function(){
-    return User::all();
+Route::prefix('v1')->group(function () {
+    //  routes
+    Route::resource('/categories', CategoryApiController::class);
+    Route::resource('/events', EventApiController::class);
+    Route::resource('/users', UsersApiController::class);
+    Route::resource('/venues', VenueApiController::class);
 
+    Route::post('/register', [AuthUserApiController::class, 'register']);
+    Route::post('/login', [AuthUserApiController::class, 'login']);
+    Route::post('/logout', [AuthUserApiController::class, 'logout'])->middleware('auth:sanctum');
 });
 
-Route::get('/category',function(){
-    // return Category::all(); // normal way
-    return CategoryResource::collection(Category::all()); // works the same as below
-    // return CategoryResource::collection(Category::all()); // both works as same.
-})->middleware('throttle:category');
-
-Route::get('category/create',[CategoryApiController::class,'create'])->name('create');
+Route::post('/register', [SwaggerApiController::class, 'register']);
+Route::post('/login', [SwaggerLoginApiController::class, 'login']);
+Route::get('/user', [SwaggerApiController::class, 'getUserDetails'])->middleware('auth:sanctum');
