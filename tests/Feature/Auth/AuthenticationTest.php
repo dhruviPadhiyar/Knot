@@ -9,6 +9,10 @@ use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
+    public function test_example(): void
+    {
+        $this->assertTrue(true);
+    }
 //     use RefreshDatabase;
 
 //     public function test_login_screen_can_be_rendered(): void

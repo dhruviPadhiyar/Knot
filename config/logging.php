@@ -126,6 +126,8 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        // custom logging file (daily generated) for user activity
         'user_activity_log' => [
             'driver' => 'daily',
             'path' => storage_path('logs/user_activity.log'),

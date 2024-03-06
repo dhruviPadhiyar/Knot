@@ -49,10 +49,9 @@ Route::prefix('v1')->group(function () {
             // Venue routes
             Route::resource('/venues', VenueApiController::class);
         });
-
-        // General user routes
-        Route::resource('/users', UsersApiController::class)->except(['create', 'edit']);
     });
+    // General user routes
+    Route::resource('/users', UsersApiController::class);
 });
 
 // Swagger/OpenAPI routes

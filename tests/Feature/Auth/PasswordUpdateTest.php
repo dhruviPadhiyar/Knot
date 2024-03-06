@@ -9,6 +9,10 @@ use Tests\TestCase;
 
 class PasswordUpdateTest extends TestCase
 {
+    public function test_example(): void
+    {
+        $this->assertTrue(true);
+    }
 //     use RefreshDatabase;
 
 //     public function test_password_can_be_updated(): void

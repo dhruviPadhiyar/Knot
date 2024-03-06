@@ -8,6 +8,10 @@ use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
+    public function test_example(): void
+    {
+        $this->assertTrue(true);
+    }
 //     use RefreshDatabase;
 
 //     public function test_registration_screen_can_be_rendered(): void

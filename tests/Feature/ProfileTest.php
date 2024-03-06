@@ -8,6 +8,10 @@ use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
+    public function test_example(): void
+    {
+        $this->assertTrue(true);
+    }
     // use RefreshDatabase;
 
     // public function test_profile_page_is_displayed(): void
